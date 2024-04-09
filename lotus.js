@@ -57,6 +57,8 @@ const parseLine = (line, stack) => {
 
   if (tag.startsWith("@")) {
     currentParent.node.addAttribute(tag.substring(1), value);
+  } else if (tag.startsWith("- ")) {
+    currentParent.node.addAttribute(tag.substring(2), value);
   } else {
     const newNode = new Node(tag, {}, value);
     currentParent.node.addChild(newNode);
