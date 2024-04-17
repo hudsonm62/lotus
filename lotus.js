@@ -57,6 +57,8 @@ const parseLine = (line, stack) => {
 
   if (tag.startsWith("@")) {
     currentParent.node.addAttribute(tag.substring(1), value);
+  } else if (tag.startsWith("- ")) {
+    currentParent.node.addAttribute(tag.substring(2), value);
   } else {
     const newNode = new Node(tag, {}, value);
     currentParent.node.addChild(newNode);
@@ -73,7 +75,10 @@ const lotus = (lotus) => {
   lines.forEach((line) => parseLine(line, stack));
 
   // Adjusts to remove the <html> tag from the result
-  return root.toHtml().substring(6);
+  let result = root.toHtml().substring(6);
+  result = result.substring(0, result.length - 7);
+
+  return result;
 };
 
 module.exports = lotus;
